@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "prometheus-configurator"
+version = "0.0.0"
+description = "Prometheus Configuration Helper"
+authors = ["Chris Pressland <mail@cpressland.io>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "prometheus_configurator" }
+]
+
+[tool.poetry.scripts]
+prometheus-configurator = "prometheus_configurator:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+PyYAML = "^6.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.6.0"
+Flake8-pyproject = "^1.1.0.post0"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.poetry-dynamic-versioning]
+enable = true
