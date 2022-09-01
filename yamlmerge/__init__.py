@@ -1,9 +1,8 @@
-from os import getenv
 from pathlib import Path
 
 import yaml
 
-base_path = getenv("BASE_PATH", "/etc/prometheus")
+from yamlmerge.settings import settings
 
 
 def merge(into: dict, values: dict) -> dict:
@@ -24,11 +23,11 @@ def merge(into: dict, values: dict) -> dict:
 
 def main() -> None:
     config = {}
-    for path in Path(base_path + "/conf.d").glob("*.yaml"):
-        with path.open("r") as f:
+    for file in Path(settings.source_directory).glob("*.yaml"):
+        with file.open("r") as f:
             new_config = yaml.load(f, yaml.CLoader)
         config = merge(config, new_config)
-    with open(f"{base_path}/prometheus.yaml", "w") as f:
+    with open(settings.destination_file, "w") as f:
         yaml.dump(config, f, yaml.CDumper)
 
 
